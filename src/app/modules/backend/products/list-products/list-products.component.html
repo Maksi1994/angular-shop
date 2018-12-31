@@ -1,14 +1,49 @@
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voicemail</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
-  </button>
-</mat-menu>
+<div class="d-flex justify-content-between">
+    <ul class="nav nav-tabs w-100 mr-5">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">List</a>
+        </li>
+    </ul>
+
+    <button type="button" class="btn btn-primary d-block" routerLink="/backend/products/create">Add</button>
+</div>
+
+<div class="filter my-3 w-100 d-flex py-3 align-items-center px-4 justify-content-between" >
+    <div class="input-group mb-3 w-25 d-flex ">
+        <label class="w-100 required d-block">By category</label>
+
+        <select class="custom-select" required [(ngModel)]="categoryId" (change)="load()">
+            <option [value]="val.id" *ngFor="let val of categories">{{val.name}}</option>
+        </select>
+    </div>
+
+    <nouislider *ngIf="priceRange.length" [connect]="true" [step]="1" [min]="minPrice || 0" [max]="maxPrice || 0" [(ngModel)]="priceRange"></nouislider>
+</div>
+
+<div class="wrap row">
+    <table class="table mt-5">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Date of adding</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of products | paginate: { itemsPerPage: meta.per_page, currentPage: page, totalItems: meta.total  }; let i = index;">
+            <th scope="row">{{((page - 1) * meta.per_page) + (i+1)}}</th>
+            <td>{{product.name}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.created_at}}</td>
+            <td class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary d-block mr-5" [routerLink]="['/backend/products/edit/', product.id]">Edit</button>
+                <button type="button" class="btn btn-danger d-block" (click)="remove(product.id)">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<pagination-controls class="my-pagination" (pageChange)="changePage($event)"></pagination-controls>

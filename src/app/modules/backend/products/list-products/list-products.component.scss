@@ -1,0 +1,13 @@
+.wrap {
+  min-height: calc(100vh - 300px);
+}
+
+.my-pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+
+  & /deep/ ul {
+    padding: 0;
+  }
+}

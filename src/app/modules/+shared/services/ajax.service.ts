@@ -86,12 +86,6 @@ export class AjaxService {
               }
           });
       }
-      let stateKey = makeStateKey(url),
-          stateTransferData = this.state.get(stateKey, null as any);
-      // Return from store
-      if (stateTransferData) {
-          return of(stateTransferData);
-      }
 
       return this.http.post(this.baseUrl + url, params, {headers: new HttpHeaders(headers)})
       .pipe(map(res => this.handleSuccess(res, url)))

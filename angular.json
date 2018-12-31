@@ -28,7 +28,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -160,7 +160,7 @@
       "inlineStyle": true,
       "inlineTemplate": true,
       "prefix": "app",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "spec": false,

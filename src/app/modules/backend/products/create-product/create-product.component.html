@@ -1,15 +1,11 @@
-<div *ngIf="product.name" class="info-line-wrap border-top border-bottom py-4 mb-5">
-    <h6 class="mb-2">Was bought: <span class="text-info">{{product.sum_boughts}} times</span></h6>
-    <h6 class="mb-2">Average rating: 5 of 5</h6>
-</div>
-
-<div class="w-50 mx-auto" *ngIf="product">
-    <img class="image w-50 d-block mx-auto my-3"  [src]="productImageUrl" alt="">
-    <div class="input-group mb-5">
+<div class="w-50 mx-auto">
+    <div class="input-group mb-3">
         <label class="w-100 d-block">Photo</label>
         <div class="custom-file">
             <input type="file" accept="image/png, image/jpg, image/jpeg"
-                   required (change)="uploadFile($event)" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                   [class.is-invalid]="!product.image && wasSubmitted"
+                   (change)="uploadFile($event)"
+                   required class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
             <label class="custom-file-label" for="inputGroupFile01">Choose Photo</label>
         </div>
     </div>
@@ -34,5 +30,5 @@
         </select>
     </div>
 
-    <button type="button" class="btn btn-primary mt-5 btn-lg mx-auto d-block w-75" (click)="updateProduct()">Update</button>
+    <button type="button" class="btn btn-primary mt-5 btn-lg mx-auto d-block w-75" (click)="saveProduct()">Save</button>
 </div>
