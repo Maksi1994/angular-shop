@@ -32,9 +32,8 @@ import { NouisliderModule } from 'ng2-nouislider';
         NgxPaginationModule,
         RouterModule.forChild([
             {
-                path: '', component: BackendComponent,
+                path: '', component: BackendComponent, redirectTo: 'products/list/1', pathMatch: 'full',
                 children: [
-                    {path: '', component: BackendComponent, redirectTo: 'products/list/1', pathMatch: 'full'},
                     {path: 'products/list/:page', component: ListProductsComponent},
                     {path: 'products/edit/:id', component: OneProductComponent},
                     {path: 'products/create', component: CreateProductComponent},

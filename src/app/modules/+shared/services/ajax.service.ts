@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import {CookieService} from './cookie.service';
+import {AppCookieService} from './app-cookie.service';
 import { of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ export class AjaxService {
 
   constructor(private http: HttpClient,
                 public router: Router,
-                public cookie: CookieService,
+                public cookie: AppCookieService,
                 private state: TransferState) {
 
   }
@@ -30,14 +30,13 @@ export class AjaxService {
   post(url: string, paramsObj?: object, store = true) {
       const params = new URLSearchParams();
       const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    //  const isAuth = this.cookie.get('auth_token');
+      const authToken = this.cookie.get('authToken');
       let stateKey;
       // Auth header
-      /*
-      if (isAuth) {
-          headers['Authorization'] = 'Bearer ' + isAuth;
+
+      if (authToken) {
+          headers['Authorization'] = 'Bearer ' + authToken;
       }
-      */
 
       // Request params
       let urlHash = url;
@@ -47,7 +46,7 @@ export class AjaxService {
       }
       if (store) {
           stateKey = makeStateKey(urlHash);
-          let stateTransferData = this.state.get(stateKey, null as any);
+          const stateTransferData = this.state.get(stateKey, null as any);
 
           // Return from store
           if (stateTransferData) {

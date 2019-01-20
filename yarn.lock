@@ -3309,6 +3309,10 @@ ng2-nouislider@^1.7.13:
   version "1.7.13"
   resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.13.tgz#65ad53f34f3efc39bb654f1ae85aa1d8b458a718"
 
+ngx-cookie-service@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-2.1.0.tgz#8023f9edfcd8bd4f0b299b1f0c263112dbb0e261"
+
 ngx-pagination@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-3.2.1.tgz#d82fe15b03a628621dabb835ebc90011f2557689"

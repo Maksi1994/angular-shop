@@ -72,10 +72,6 @@ export class ListProductsComponent implements OnInit {
         this.router.navigate(['/backend/products/list/', page]);
     }
 
-    changeParams() {
-
-    }
-
     remove(id) {
         this.productsService.removeProduct(id).subscribe(() => {
             if (this.products.length === 1) {
