@@ -12,7 +12,6 @@ export class BackendComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
 }

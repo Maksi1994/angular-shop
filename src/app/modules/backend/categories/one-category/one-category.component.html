@@ -1,0 +1,23 @@
+<div *ngIf="category">
+    <div class="info-line-wrap border-top border-bottom py-4 mb-5">
+        <h6 class="mb-2">Count of products: <span class="text-info">{{category.productsCount}} times</span></h6>
+    </div>
+
+    <div class="w-50 mx-auto" *ngIf="category">
+        <div class="input-group mb-3">
+            <label class="w-100 d-block">Name</label>
+            <input type="text" [class.is-invalid]="!category.name && wasSubmitted" required [(ngModel)]="category.name"
+                   class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-3">
+            <label class="w-100 required d-block">Parent</label>
+
+            <select class="custom-select" required [(ngModel)]="parentId">
+                <option [value]="0">__</option>
+                <option [value]="val.id" *ngFor="let val of allCategories">{{val.name}}</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary mt-5 btn-lg mx-auto d-block w-75" (click)="updateProduct()">Update
+        </button>
+    </div>
+</div>

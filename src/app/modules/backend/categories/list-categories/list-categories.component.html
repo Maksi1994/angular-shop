@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between">
+    <ul class="nav nav-tabs w-100 mr-5">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">List</a>
+        </li>
+    </ul>
+
+    <button type="button" class="btn btn-primary d-block" routerLink="/backend/categories/create">Add</button>
+</div>
+
+<!--
+<div class="filter my-3 w-100 d-flex py-3 align-items-center px-4 justify-content-between" >
+    <div class="input-group mb-3 w-25 d-flex ">
+        <label class="w-100 required d-block">By category</label>
+
+        <select class="custom-select" required [(ngModel)]="categoryId" (change)="load()">
+            <option [value]="val.id" *ngFor="let val of categories">{{val.name}}</option>
+        </select>
+    </div>
+
+    <nouislider *ngIf="priceRange.length" [connect]="true" [step]="1" [min]="minPrice || 0" [max]="maxPrice || 0" [(ngModel)]="priceRange"></nouislider>
+</div>
+-->
+
+<div class="wrap row">
+    <table class="table mt-5">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Parent category</th>
+            <th scope="col">Count of products</th>
+            <th scope="col">Date of adding</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of categories; let i = index;">
+            <th scope="col">{{i+1}}</th>
+            <td>{{category.name}}</td>
+            <td>{{category.parent ? category.parent.name : '_'}}</td>
+            <td>{{category.productsCount}}</td>
+            <td>{{category.created_at}}</td>
+            <td class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary d-block mr-5" [routerLink]="['/backend/categories/edit/', category.id]">Edit</button>
+                <button type="button" class="btn btn-danger d-block" (click)="remove(category.id)">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

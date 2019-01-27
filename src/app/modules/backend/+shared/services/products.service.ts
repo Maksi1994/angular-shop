@@ -9,23 +9,23 @@ export class ProductsService {
     }
 
     public getList(data) {
-        return this.ajaxService.post('/backend/product/get-list', data, false);
+        return this.ajaxService.post('/backend/products/get-list', data, false);
     }
 
     public getOne(id) {
-        return this.ajaxService.post('/backend/product/get-one', {id}, false);
+        return this.ajaxService.post('/backend/products/get-one', {id}, false);
     }
 
     public saveProduct(data) {
-        return this.ajaxService.file('/backend/product/create', data);
+        return this.ajaxService.file('/backend/products/create', data);
     }
 
     public updateProduct(data) {
-        return this.ajaxService.file('/backend/product/update', data);
+        return this.ajaxService.file('/backend/products/update', data);
     }
 
     public removeProduct(id) {
-        return this.ajaxService.post('/backend/product/delete', {id});
+        return this.ajaxService.post('/backend/products/delete', {id});
     }
 
 

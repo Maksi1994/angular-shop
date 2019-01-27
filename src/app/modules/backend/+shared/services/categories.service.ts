@@ -8,8 +8,20 @@ export class CategoriesService {
 
     }
 
-   public getAll() {
-        return this.ajaxService.post('/backend/category/get-list');
-   }
+    public getAll(data?) {
+        return this.ajaxService.post('/backend/categories/get-list', data, false);
+    }
+
+    public removeOne(id) {
+        return this.ajaxService.post('/backend/categories/delete', {id});
+    }
+
+    public getOne(id) {
+        return this.ajaxService.post('/backend/categories/get-one', {id}, false);
+    }
+
+    public updateCategory(data) {
+        return this.ajaxService.post('/backend/categories/update', data, false);
+    }
 
 }

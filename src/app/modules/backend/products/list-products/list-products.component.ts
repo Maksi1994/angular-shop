@@ -30,7 +30,9 @@ export class ListProductsComponent implements OnInit {
     }
 
     ngOnInit() {
+        debugger
         this.route.params.subscribe((params: any) => {
+
             this.load(params.page);
         });
 
