@@ -15,6 +15,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NouisliderModule } from 'ng2-nouislider';
 import {OneCategoryComponent} from './categories/one-category/one-category.component';
 import {ListProductsComponent} from './products/list-products/list-products.component';
+import {CreateCategoryComponent} from './categories/create-category/create-category.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {ListProductsComponent} from './products/list-products/list-products.comp
         NavComponent,
         OneCategoryComponent,
         ListCategoriesComponent,
-        ListProductsComponent
+        ListProductsComponent,
+        CreateCategoryComponent
     ],
     imports: [
         NouisliderModule,
@@ -44,7 +46,7 @@ import {ListProductsComponent} from './products/list-products/list-products.comp
                     {path: 'products/create', component: CreateProductComponent},
                     {path: 'categories/list', component: ListCategoriesComponent},
                     {path: 'categories/edit/:id', component: OneCategoryComponent},
-                 //   {path: 'categories/create', component: Create},
+                    {path: 'categories/create', component: CreateCategoryComponent},
                 ]
             }
         ])

@@ -20,6 +20,10 @@ export class CategoriesService {
         return this.ajaxService.post('/backend/categories/get-one', {id}, false);
     }
 
+    public createCategory(data) {
+        return this.ajaxService.post('/backend/categories/create', data, false);
+    }
+
     public updateCategory(data) {
         return this.ajaxService.post('/backend/categories/update', data, false);
     }

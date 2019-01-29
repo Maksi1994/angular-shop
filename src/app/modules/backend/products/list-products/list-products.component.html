@@ -46,4 +46,4 @@
     </table>
 </div>
 
-<pagination-controls class="my-pagination" (pageChange)="changePage($event)"></pagination-controls>
+<pagination-controls class="my-pagination" *ngIf="products.length" (pageChange)="changePage($event)"></pagination-controls>
