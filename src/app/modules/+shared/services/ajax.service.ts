@@ -41,7 +41,11 @@ export class AjaxService {
       // Request params
       let urlHash = url;
       if (paramsObj && !_.isEmpty(paramsObj)) {
-          _.forEach(paramsObj, (val, key) => params.set(key, val));
+          _.forEach(paramsObj, (val, key) => {
+              if (!_.isUndefined(val)) {
+                  params.append(key, val);
+              }
+          });
           urlHash += this.generateHash(JSON.stringify(paramsObj));
       }
       if (store) {
@@ -68,14 +72,12 @@ export class AjaxService {
   file(url: string, paramsObj?: object) {
       const params = new FormData();
       const headers = {enctype: 'multipart/form-data'};
-    //  const isAuth = this.cookie.get('auth_token');
+      const isAuth = this.cookie.get('authToken');
 
       // Auth header
-      /*
       if (isAuth) {
           headers['Authorization'] = 'Bearer ' + isAuth;
       }
-      */
 
       // Request params
       if (paramsObj && !_.isEmpty(paramsObj)) {

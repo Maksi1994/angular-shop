@@ -182,6 +182,12 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ng-bootstrap/ng-bootstrap@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.0.2.tgz#333e90190eda76879a00df85d5aa031b78f7d565"
+  dependencies:
+    tslib "^1.9.0"
+
 "@ng-select/ng-select@^2.13.3":
   version "2.13.3"
   resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.13.3.tgz#5a573014334ea4fec906db48a0edebd8713835df"
@@ -2976,7 +2982,7 @@ lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.tail/-/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
 
-lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.10:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 

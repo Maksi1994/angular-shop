@@ -4,43 +4,44 @@
             <a class="nav-link active" href="#">List</a>
         </li>
     </ul>
-
-    <button type="button" class="btn btn-primary d-block flex-shrink-0" routerLink="/backend/products/create">
-        <i class="fas fa-plus pr-2"></i>
-        Add
-    </button>
 </div>
 
-<div class="filter my-3 w-100 d-flex py-3 px-4">
-
+<div class="filter my-3 w-100 d-flex py-3 px-4 flex-wrap">
     <div class="filters d-flex flex-column w-50">
-        <h5 class="mb-5">Filters:</h5>
-        <div class="input-group mb-3 w-50 d-flex ">
-            <label class="w-100 required d-block">Category</label>
+        <h5 class="mb-5 w-100">Filters:</h5>
 
-            <select class="custom-select" required [(ngModel)]="categoryId" (change)="refresh()">
-                <option [selected]="true" [value]="null">__</option>
-                <option [value]="val.id" *ngFor="let val of categories">{{val.name}}</option>
-            </select>
-        </div>
+        <label class="w-100 required d-block">Calendar</label>
+        <button type="button"
+                (click)="toggleCalendar()"
+                class="btn mr-2 mb-3 calendar"
+                [ngClass]="{
+                   'btn-light': !isOpenCalendar,
+                   'btn-danger': isOpenCalendar
+                   }"
+                [class.btn-success]="orderType === 'price'">
+            <i class="fa fa-calendar" *ngIf="!isOpenCalendar" aria-hidden="true"></i>
+            <i class="far fa-times-circle" *ngIf="isOpenCalendar"></i>
+        </button>
 
-        <div class="range-wrap w-50">
+        <ngb-datepicker *ngIf="isOpenCalendar" #dp (select)="onDateSelection($event)" [displayMonths]="2"
+                        [dayTemplate]="t" outsideDays="hidden"></ngb-datepicker>
+
+        <div class="range-wrap w-50" *ngIf="priceRange.length">
             <label class="w-100 required d-block">Price</label>
             <div class="d-flex justify-content-between">
                 <span class="from">{{priceRange[0]}} $</span>
                 <span class="to">{{priceRange[1]}} $</span>
             </div>
-            <nouislider *ngIf="priceRange.length"
-                        [connect]="true"
-                        [step]="1"
-                        [min]="minPrice || 0"
-                        [max]="maxPrice || 0"
-                        [(ngModel)]="priceRange"
-                        (change)="refresh()"
+            <nouislider
+                    [connect]="true"
+                    [step]="1"
+                    [min]="minPrice || 0"
+                    [max]="maxPrice || 0"
+                    [(ngModel)]="priceRange"
+                    (change)="refresh()"
             ></nouislider>
         </div>
     </div>
-
 
     <div class="order-params ml-auto">
         <h5 class="mb-5">Sort by:</h5>
@@ -61,20 +62,6 @@
                    'fa-chevron-down': orderType === 'price' && order === 'asc'
                    }"></i>
             </button>
-            <button type="button" class="btn mr-2"
-                    (click)="changeFilter('popularity')"
-                    [ngClass]="{
-                   'btn-light': orderType !== 'popularity',
-                   'btn-success': orderType === 'popularity'
-                   }">
-                <i class="fas fa-grin-stars pr-2"></i>
-                Popularity
-                <i class="fas pl-2 fa-chevron-up"
-                   [ngClass]="{
-                   'fa-chevron-up': orderType === 'popularity' && order === 'desc'  || orderType !== 'popularity',
-                   'fa-chevron-down': orderType === 'popularity' && order === 'asc'
-                   }"></i>
-            </button>
             <button type="button" class="btn"
                     (click)="changeFilter('newest')"
                     [ngClass]="{
@@ -82,7 +69,7 @@
                    'btn-success': orderType === 'newest'
                    }">
                 <i class="fas fa-fire pr-2"></i>
-                Newest
+                Newst
                 <i class="fas pl-2"
                    [ngClass]="{
                    'fa-chevron-up': orderType === 'newest' && order === 'desc'  || orderType !== 'newest',
@@ -93,37 +80,34 @@
     </div>
 </div>
 
+
+
 <div class="wrap row">
     <table class="table mt-5">
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Price</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Count Products</th>
+            <th scope="col">Sum Price</th>
             <th scope="col">Date of adding</th>
             <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let product of products | paginate: { itemsPerPage: meta.per_page, currentPage: page, totalItems: meta.total  }; let i = index;">
+        <tr *ngFor="let order of orders | paginate: { itemsPerPage: meta.per_page, currentPage: page, totalItems: meta.total  }; let i = index;">
             <th scope="row">{{((page - 1) * meta.per_page) + (i+1)}}</th>
-            <td>{{product.name}}</td>
-            <td>
-                <span [class.pointer]="product.category" (click)="goToCategoryEditor(product)"> {{product.category ? product.category.name : '_'}}</span>
-            </td>
-            <td>
-                <span [class.pointer]="product.category"
-                      (click)="goToCategoryEditor(product)"> {{product.price}} $</span>
-            </td>
-            <td>{{product.created_at}}</td>
+            <td>{{order.customer.name}}</td>
+            <td>{{order.count}}</td>
+            <td>{{order.full_price}}$</td>
+            <td>{{order.created_at}}</td>
             <td class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary d-block mr-5"
-                        [routerLink]="['/backend/products/edit/', product.id]">
+                        [routerLink]="['/backend/orders/edit/', order.id]">
                     <i class="fas fa-pen pr-2"></i>
                     Edit
                 </button>
-                <button type="button" class="btn btn-danger d-block" (click)="remove(product.id)">
+                <button type="button" class="btn btn-danger d-block" (click)="remove(order.id)">
                     <i class="fas fa-trash-alt pr-2"></i>
                     Remove
                 </button>
@@ -133,5 +117,16 @@
     </table>
 </div>
 
-<pagination-controls class="my-pagination" *ngIf="products.length"
+<ng-template #t let-date let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isRange(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>
+
+<pagination-controls class="my-pagination" *ngIf="orders.length"
                      (pageChange)="changePage($event)"></pagination-controls>

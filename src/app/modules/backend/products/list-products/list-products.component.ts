@@ -17,7 +17,8 @@ export class ListProductsComponent implements OnInit {
     minPrice;
 
     loading: Subscription;
-    order = 'desc';
+    orderType = '';
+    order = '';
     categoryId;
     categories = [];
     priceRange = [];
@@ -30,6 +31,9 @@ export class ListProductsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.order = 'desc';
+        this.orderType = 'newest';
+
         this.route.params.subscribe((params: any) => {
             this.load(params.page);
         });
@@ -47,8 +51,9 @@ export class ListProductsComponent implements OnInit {
         this.products = [];
         this.loading = this.productsService.getList({
             page: this.page,
-            minPrice: 0,
-            maxPrice: 100,
+            minPrice: this.priceRange[0],
+            maxPrice: this.priceRange[1],
+            orderType: this.orderType,
             order: this.order,
             categoryId: this.categoryId
         }).subscribe((rez) => {
@@ -56,7 +61,10 @@ export class ListProductsComponent implements OnInit {
             this.meta = rez.meta;
             this.maxPrice = rez.max_price;
             this.minPrice = rez.min_price;
-            this.priceRange.push(rez.min_price, rez.max_price);
+
+            if (!this.priceRange.length) {
+                this.priceRange.push(rez.min_price, rez.max_price);
+            }
 
             this.loading = null;
         });
@@ -80,6 +88,31 @@ export class ListProductsComponent implements OnInit {
                 this.load();
             }
         });
+    }
+
+    goToCategoryEditor(product) {
+        if (product.category) {
+            this.router.navigate(['/backend/categories/edit/', product.category.id]);
+        }
+    }
+
+    changeFilter(type) {
+        if (this.orderType !== type) {
+            this.orderType = type;
+            this.order = 'desc';
+        } else {
+            this.order = this.order === 'asc' ? 'desc' : 'asc';
+        }
+
+        this.refresh();
+    }
+
+    refresh() {
+        if (+this.page !== 1) {
+            this.router.navigate(['/backend/products/list/1']);
+        } else {
+            this.load();
+        }
     }
 
 }

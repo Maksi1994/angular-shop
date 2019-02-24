@@ -19,21 +19,17 @@ export class OneProductComponent implements OnInit {
                 private router: Router,
                 private productsService: ProductsService,
                 private categoriesService: CategoriesService) {
-
     }
 
     ngOnInit() {
         this.route.params.subscribe((params: any) => {
             this.load(params.id);
         });
-
     }
 
     load(id) {
-        zip(
-            this.productsService.getOne(id),
-            this.categoriesService.getAll()
-        ).subscribe((rez: any[]) => {
+        zip(this.productsService.getOne(id),
+            this.categoriesService.getAll()).subscribe((rez: any[]) => {
             this.product = rez[0].result;
             this.categories = rez[1].result;
 
@@ -57,8 +53,7 @@ export class OneProductComponent implements OnInit {
         this.wasSubmitted = true;
 
         if (this.product.name &&
-            this.product.price &&
-            this.product.category_id) {
+            this.product.price) {
 
             this.productsService.updateProduct(this.product).subscribe((rez) => {
                 if (rez.success) {
@@ -68,5 +63,3 @@ export class OneProductComponent implements OnInit {
         }
     }
 }
-
-

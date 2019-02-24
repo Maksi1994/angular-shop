@@ -1,0 +1,60 @@
+.wrap {
+  min-height: calc(100vh - 300px);
+}
+
+.range-wrap {
+  width: 250px;
+
+  nouislider {
+    margin: 20px auto;
+    margin-left: 15px;
+  }
+}
+
+.my-pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+
+  & /deep/ ul {
+    padding: 0;
+  }
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+
+.custom-day.range, .custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.filter {
+  position: relative;
+
+  .calendar {
+    width: 80px;
+  }
+}
+
+ngb-datepicker {
+  position: absolute;
+  z-index: 99;
+  background: #fff;
+  top: 165px;
+}
+
+

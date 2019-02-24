@@ -16,9 +16,16 @@ import { NouisliderModule } from 'ng2-nouislider';
 import {OneCategoryComponent} from './categories/one-category/one-category.component';
 import {ListProductsComponent} from './products/list-products/list-products.component';
 import {CreateCategoryComponent} from './categories/create-category/create-category.component';
+import {OrdersService} from './+shared/services/orders.service';
+import {ListOrdersComponent} from './orders/list-orders/list-orders.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {OneOrderComponent} from './orders/one-order/one-order.component';
+import {ListPromotionsComponent} from './promotions/list-promotions/list-promotions.component';
+import {PromotionsService} from './+shared/services/promotions.service';
 
 @NgModule({
     declarations: [
+        ListPromotionsComponent,
         OneProductComponent,
         BackendComponent,
         CreateProductComponent,
@@ -26,9 +33,12 @@ import {CreateCategoryComponent} from './categories/create-category/create-categ
         OneCategoryComponent,
         ListCategoriesComponent,
         ListProductsComponent,
-        CreateCategoryComponent
+        CreateCategoryComponent,
+        ListOrdersComponent,
+        OneOrderComponent
     ],
     imports: [
+        NgbModule,
         NouisliderModule,
         NgSelectModule,
         HttpClientModule,
@@ -40,18 +50,33 @@ import {CreateCategoryComponent} from './categories/create-category/create-categ
             {
                 path: '', component: BackendComponent,
                 children: [
-                    {path: '', component: BackendComponent, redirectTo: 'products/list/1', pathMatch: 'full'},
+                    {path: '', component: BackendComponent, redirectTo: 'products/list', pathMatch: 'full'},
+
+                    {path: 'products', redirectTo: '/backend/products/list', pathMatch: 'full'},
+                    {path: 'products/list', component: ListProductsComponent},
                     {path: 'products/list/:page', component: ListProductsComponent},
                     {path: 'products/edit/:id', component: OneProductComponent},
                     {path: 'products/create', component: CreateProductComponent},
+
+                    {path: 'categories', redirectTo: '/backend/categories/list', pathMatch: 'full'},
                     {path: 'categories/list', component: ListCategoriesComponent},
                     {path: 'categories/edit/:id', component: OneCategoryComponent},
                     {path: 'categories/create', component: CreateCategoryComponent},
+
+                    {path: 'orders', redirectTo: '/backend/orders/list', pathMatch: 'full'},
+                    {path: 'orders/list', component: ListOrdersComponent},
+                    {path: 'orders/list/:page', component: ListOrdersComponent},
+                    {path: 'orders/edit/:id', component: OneOrderComponent},
+
+                    {path: 'promotions', redirectTo: '/backend/promotions/list', pathMatch: 'full'},
+                    {path: 'promotions/list', component: ListPromotionsComponent},
+                    {path: 'promotions/list/page', component: ListPromotionsComponent},
+
                 ]
             }
         ])
     ],
-    providers: [ProductsService, CategoriesService],
+    providers: [ProductsService, CategoriesService, OrdersService, PromotionsService],
     bootstrap: [BackendComponent]
 })
 export class BackendModule {

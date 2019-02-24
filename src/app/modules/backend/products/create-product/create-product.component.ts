@@ -35,7 +35,6 @@ export class CreateProductComponent implements OnInit {
 
         if (this.product.name &&
             this.product.price &&
-            this.product.image &&
             this.product.category_id) {
 
             console.log(this.product);
